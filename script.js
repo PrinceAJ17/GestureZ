@@ -354,18 +354,19 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Save button functionality
-  saveBtn.addEventListener('click', function() {
-    if (recordButton.dataset.recordedBlob) {
-      // Get the selected gesture name and description
-      const gestureSelect = document.querySelector('.form-select');
-      const gestureName = gestureSelect.value;
-      const gestureDesc = document.querySelector('.form-textarea').value;
-      
-      // Validate inputs
-      if (gestureName === 'Select Gesture' || !gestureDesc.trim()) {
-        alert('Please select a gesture name and add a description');
-        return;
-      }
+saveBtn.addEventListener('click', function() {
+  if (recordButton.dataset.recordedBlob) {
+    // Get the selected gesture name and description
+    // Updated selectors to match your HTML
+    const gestureSelect = document.getElementById('gestureSelect');
+    const gestureName = gestureSelect.options[gestureSelect.selectedIndex].text;
+    const gestureDesc = document.querySelector('.form-textarea').value;
+    
+    // Validate inputs
+    if (!gestureName || !gestureDesc.trim()) {
+      alert('Please select a gesture name and add a description');
+      return;
+    }
       
       // Find the empty gesture slot on the main page
       const emptyPreview = document.querySelector('.empty-preview');
@@ -532,9 +533,6 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="custom-select">
             <div class="select-selected">Unselected</div>
           </div>
-        </div>
-        <div class="gesture-preview-box">
-          <!-- Empty preview box -->
         </div>
       </div>
       
