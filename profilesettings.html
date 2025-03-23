@@ -10,7 +10,7 @@
 <body>
   <div class="profile-header">
     <div class="profile-avatar">
-      <img src="/api/placeholder/100/100" alt="User Avatar">
+        <img src="/api/placeholder/100/100" alt="User Avatar" id="avatarImage">
     </div>
     <h1 class="profile-title">Welcome, John Doe!</h1>
     <div class="laptop-icon">
@@ -31,10 +31,19 @@
       <div class="content">
         <div class="section-header">Profile</div>
         <div class="profile-form">
+
+            <div class="form-row">
+                <div class="form-label">Profile Picture</div>
+                <div class="form-input">
+                    <input type="file" id="profilePicInput" class="form-field" accept="image/*" disabled>
+                    <button class="update-button" id="updatePicButton">Update</button>
+                </div>
+            </div>
+        
           <div class="form-row">
             <div class="form-label">Full name</div>
             <div class="form-input">
-              <input type="text" class="form-field" value="John Doe">
+              <input type="text" class="form-field" value="John Doe" disabled>
               <button class="update-button">Update</button>
             </div>
           </div>
@@ -42,7 +51,7 @@
           <div class="form-row">
             <div class="form-label">Username</div>
             <div class="form-input">
-              <input type="text" class="form-field" value="johnDoe$">
+              <input type="text" class="form-field" value="johnDoe$" disabled>
               <button class="update-button">Update</button>
             </div>
           </div>
@@ -50,7 +59,7 @@
           <div class="form-row">
             <div class="form-label">Email Address</div>
             <div class="form-input">
-              <input type="email" class="form-field" value="johndoe234@gmail.com">
+              <input type="email" class="form-field" value="johndoe234@gmail.com" disabled>
               <button class="update-button">Update</button>
             </div>
           </div>
@@ -58,7 +67,7 @@
           <div class="form-row">
             <div class="form-label">Date of Birth</div>
             <div class="form-input">
-              <input type="text" class="form-field" value="/ /">
+              <input type="text" class="form-field" value="/ /" disabled>
               <button class="update-button">Update</button>
             </div>
           </div>
@@ -66,7 +75,7 @@
           <div class="form-row">
             <div class="form-label">Language</div>
             <div class="form-input">
-              <input type="text" class="form-field" value="English">
+              <input type="text" class="form-field" value="English" disabled>
               <button class="update-button">Update</button>
             </div>
           </div>
@@ -147,7 +156,6 @@
           <button class="btn btn-logout card-button" data-url="login.html">Logout</button>
           <div>
             <button class="btn btn-revert">Revert changes</button>
-            <button class="btn btn-save">Save changes</button>
           </div>
         </div>
     </div>
