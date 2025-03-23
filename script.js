@@ -9,185 +9,102 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   
-    // Check if we're on the login page
-    const loginForm = document.querySelector('#loginForm, .login-form');
+    // Check if we're on the login page (you'll need to add an identifier to your login form)
+    const loginForm = document.querySelector('#loginForm, .login-form'); // Adjust selector to match your login form
     if (loginForm) {
       // Handle login submission
       loginForm.addEventListener('submit', function(event) {
-        // Prevent form submission
+        // Prevent form submission if you're handling login via JavaScript
         event.preventDefault();
         
-        // Get all the input fields
-        const fullNameInput = document.getElementById('fullname');
-        const emailInput = document.getElementById('email');
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.querySelector('input[type="password"]');
-        
-        // Store all values in localStorage
-        if (fullNameInput && fullNameInput.value.trim()) {
-          localStorage.setItem('userName', fullNameInput.value.trim());
-        }
-        
-        if (emailInput && emailInput.value.trim()) {
-          localStorage.setItem('userEmail', emailInput.value.trim());
-        }
+        // Get the username/name input from the login form
+        // Adjust these selectors to match your actual input fields
+        const usernameInput = loginForm.querySelector('input[type="text"], input[name="username"]');
+        const passwordInput = loginForm.querySelector('input[type="password"]');
         
         if (usernameInput && usernameInput.value.trim()) {
-          localStorage.setItem('userUsername', usernameInput.value.trim());
+          // Store the name in localStorage
+          localStorage.setItem('userName', usernameInput.value.trim());
+          
+          // You might want to do additional validation here
+          
+          // Redirect to the home page after login
+          window.location.href = 'home.html'; // Adjust path as needed
         }
-        
-        // Redirect to the home page after login
-        window.location.href = 'home.html'; // Adjust path as needed
       });
     }
   
     // Profile page specific functionality
     if (document.querySelector('.form-label')) {
-      // Find all the form inputs
+      // Find the full name input by looking at all form rows
       const formRows = document.querySelectorAll('.form-row');
       let fullNameInput = null;
-      let usernameInput = null;
-      let emailInput = null;
-      let dobInput = null;
-      let languageInput = null;
-      
-      // Find the relevant inputs by checking the label text
+      let updateNameButton = null;
+  
+      // Find the full name input by checking the label text
       formRows.forEach(row => {
         const label = row.querySelector('.form-label');
-        if (label) {
-          const labelText = label.textContent.trim();
-          if (labelText === 'Full name') {
-            fullNameInput = row.querySelector('input');
-          } else if (labelText === 'Username') {
-            usernameInput = row.querySelector('input');
-          } else if (labelText === 'Email Address') {
-            emailInput = row.querySelector('input');
-          } else if (labelText === 'Date of Birth') {
-            dobInput = row.querySelector('input');
-          } else if (labelText === 'Language') {
-            languageInput = row.querySelector('input');
-          }
+        if (label && label.textContent.trim() === 'Full name') {
+          fullNameInput = row.querySelector('input');
+          updateNameButton = row.querySelector('.update-button');
         }
       });
-      
-      // Populate the fields with saved values
-      if (fullNameInput) {
+  
+      // If we found the name input and button, set up the event handler
+      if (fullNameInput && updateNameButton) {
+        // Update the profile form with the saved name
         const savedName = localStorage.getItem('userName');
-        if (savedName) {
+        if (savedName && fullNameInput.value === "John Doe") {
+          // Only update if it's still the default value
           fullNameInput.value = savedName;
         }
-      }
-      
-      if (usernameInput) {
-        const savedUsername = localStorage.getItem('userUsername');
-        if (savedUsername) {
-          usernameInput.value = savedUsername;
-        }
-      }
-      
-      if (emailInput) {
-        const savedEmail = localStorage.getItem('userEmail');
-        if (savedEmail) {
-          emailInput.value = savedEmail;
-        }
-      }
-      
-      // Set up update buttons for all fields
-      document.querySelectorAll('.update-button').forEach(button => {
-        if (button.id !== 'updatePicButton') { // Exclude the profile picture button
-          const inputField = button.closest('.form-input').querySelector('input');
-          const labelElement = button.closest('.form-row').querySelector('.form-label');
-          
-          if (inputField && labelElement) {
-            const fieldType = labelElement.textContent.trim();
-            
-            button.addEventListener('click', function() {
-              if (inputField.disabled) {
-                // Enable the input for editing
-                inputField.disabled = false;
-                inputField.focus();
-                this.textContent = "Save";
-              } else {
-                // Save the value
-                const newValue = inputField.value.trim();
-                if (newValue) {
-                  // Determine which localStorage key to use based on field type
-                  let storageKey = '';
-                  if (fieldType === 'Full name') {
-                    storageKey = 'userName';
-                    // Also update the welcome message
-                    const profileTitle = document.querySelector('.profile-title');
-                    if (profileTitle) {
-                      profileTitle.textContent = `Welcome, ${newValue}!`;
-                    }
-                  } else if (fieldType === 'Username') {
-                    storageKey = 'userUsername';
-                  } else if (fieldType === 'Email Address') {
-                    storageKey = 'userEmail';
-                  } else if (fieldType === 'Date of Birth') {
-                    storageKey = 'userDob';
-                  } else if (fieldType === 'Language') {
-                    storageKey = 'userLanguage';
-                  }
-                  
-                  // Save to localStorage if we have a valid key
-                  if (storageKey) {
-                    localStorage.setItem(storageKey, newValue);
-                  }
-                  
-                  // Disable input again
-                  inputField.disabled = true;
-                  this.textContent = "Update";
-                }
-              }
-            });
-          }
-        }
-      });
-      
-      // Make the Save Changes button also save all fields
-      const saveButton = document.querySelector('.btn-save');
-      if (saveButton) {
-        saveButton.addEventListener('click', function() {
-          // Find all inputs that are currently being edited
-          const activeInputs = document.querySelectorAll('.form-input input:not([disabled])');
-          activeInputs.forEach(input => {
-            const row = input.closest('.form-row');
-            const label = row.querySelector('.form-label');
-            const updateButton = row.querySelector('.update-button');
-            
-            if (label && input.value.trim()) {
-              const fieldType = label.textContent.trim();
-              let storageKey = '';
+        
+        updateNameButton.addEventListener('click', function() {
+          if (fullNameInput.disabled) {
+            // Enable the input for editing
+            fullNameInput.disabled = false;
+            fullNameInput.focus();
+            this.textContent = "Save";
+          } else {
+            // Save the name
+            const newName = fullNameInput.value.trim();
+            if (newName) {
+              // Update localStorage
+              localStorage.setItem('userName', newName);
               
-              if (fieldType === 'Full name') {
-                storageKey = 'userName';
-                // Update welcome message
-                const profileTitle = document.querySelector('.profile-title');
-                if (profileTitle) {
-                  profileTitle.textContent = `Welcome, ${input.value.trim()}!`;
-                }
-              } else if (fieldType === 'Username') {
-                storageKey = 'userUsername';
-              } else if (fieldType === 'Email Address') {
-                storageKey = 'userEmail';
-              } else if (fieldType === 'Date of Birth') {
-                storageKey = 'userDob';
-              } else if (fieldType === 'Language') {
-                storageKey = 'userLanguage';
+              // Update welcome message
+              const profileTitle = document.querySelector('.profile-title');
+              if (profileTitle) {
+                profileTitle.textContent = `Welcome, ${newName}!`;
               }
               
-              if (storageKey) {
-                localStorage.setItem(storageKey, input.value.trim());
-              }
-              
-              // Disable input
-              input.disabled = true;
-              if (updateButton) {
-                updateButton.textContent = "Update";
-              }
+              // Disable input again
+              fullNameInput.disabled = true;
+              this.textContent = "Update";
             }
-          });
+          }
+        });
+      }
+      
+      // Make the Save Changes button also save the name
+      const saveButton = document.querySelector('.btn-save');
+      if (saveButton && fullNameInput) {
+        saveButton.addEventListener('click', function() {
+          if (!fullNameInput.disabled) {
+            // Name is being edited, save it
+            const newName = fullNameInput.value.trim();
+            if (newName) {
+              localStorage.setItem('userName', newName);
+              
+              const profileTitle = document.querySelector('.profile-title');
+              if (profileTitle) {
+                profileTitle.textContent = `Welcome, ${newName}!`;
+              }
+              
+              fullNameInput.disabled = true;
+              updateNameButton.textContent = "Update";
+            }
+          }
         });
       }
     }
@@ -245,4 +162,31 @@ document.addEventListener('DOMContentLoaded', function() {
         avatarImg.src = savedAvatar;
       }
     }
+  });
+
+   // Script to handle the popup functionality
+   document.addEventListener('DOMContentLoaded', function() {
+    const openPopupBtn = document.getElementById('open-record-popup');
+    const closePopupBtn = document.getElementById('close-popup');
+    const popupOverlay = document.getElementById('record-popup');
+    
+    // Open popup
+    openPopupBtn.addEventListener('click', function() {
+      popupOverlay.style.display = 'flex';
+      document.body.classList.add('popup-open');
+    });
+    
+    // Close popup
+    closePopupBtn.addEventListener('click', function() {
+      popupOverlay.style.display = 'none';
+      document.body.classList.remove('popup-open');
+    });
+    
+    // Close popup when clicking outside
+    popupOverlay.addEventListener('click', function(e) {
+      if (e.target === popupOverlay) {
+        popupOverlay.style.display = 'none';
+        document.body.classList.remove('popup-open');
+      }
+    });
   });
