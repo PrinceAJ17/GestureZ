@@ -302,3 +302,54 @@
   .card-button {
     cursor: pointer;
   }
+
+  .gesture-emoji {
+    font-size: 50px; /* Increased size for better visibility */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+  }
+
+  .gesture-dropdown {
+    width: 120px;
+    height: 35px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .form-label2 {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  
+  .form-select, .form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #eee;
+    margin-bottom: 10px;
+  }
+
+  .gestures-container {
+    max-height: 400px; /* Set an appropriate height */
+    overflow-y: auto;
+    padding-right: 10px; /* Optional: prevents scrollbar overlap */
+  }
+  
+  /* Prevent body from scrolling when scrolling inside the gestures container */
+  .gestures-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .gestures-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .gestures-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
