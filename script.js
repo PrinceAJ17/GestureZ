@@ -503,3 +503,99 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.remove('popup-open');
   });
 });
+
+
+
+// Add this to your script.js file
+document.addEventListener('DOMContentLoaded', function() {
+  // Find the add new gesture button
+  const addGestureBtn = document.querySelector('.add-gesture-btn');
+  
+  // Add click event listener to the add gesture button
+  addGestureBtn.addEventListener('click', function() {
+    // Find the gestures container
+    const gesturesContainer = document.querySelector('.gestures-container');
+    
+    // Create a new gesture item element
+    const newGestureItem = document.createElement('div');
+    newGestureItem.className = 'gesture-item';
+    
+    // Set the HTML content for the new gesture item
+    newGestureItem.innerHTML = `
+      <div class="gesture-preview empty-preview">
+        <button class="record-btn" id="open-record-popup">Record New Gesture</button>
+      </div>
+      
+      <div class="gesture-config">
+        <div class="select-container">
+          <label>Select gesture</label>
+          <div class="custom-select">
+            <div class="select-selected">Unselected</div>
+          </div>
+        </div>
+        <div class="gesture-preview-box">
+          <!-- Empty preview box -->
+        </div>
+      </div>
+      
+      <div class="gesture-action">
+        <button class="set-gesture-btn">Set gesture</button>
+        <button class="remove-gesture-btn">Remove</button>
+      </div>
+    `;
+    
+    // Insert the new gesture item before the add gesture container
+    const addGestureContainer = document.querySelector('.add-gesture-container');
+    gesturesContainer.insertBefore(newGestureItem, addGestureContainer);
+    
+    // Add event listener to the newly created remove button
+    const newRemoveBtn = newGestureItem.querySelector('.remove-gesture-btn');
+    newRemoveBtn.addEventListener('click', function() {
+      if (confirm('Are you sure you want to remove this gesture?')) {
+        newGestureItem.remove();
+      }
+    });
+    
+    // Add event listener to the newly created record button
+    const newRecordBtn = newGestureItem.querySelector('.record-btn');
+    newRecordBtn.addEventListener('click', function() {
+      const recordPopup = document.getElementById('record-popup');
+      if (recordPopup) {
+        recordPopup.style.display = 'flex';
+      }
+    });
+  });
+  
+  // Handle existing remove buttons (from the previous implementation)
+  const removeButtons = document.querySelectorAll('.remove-gesture-btn');
+  removeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const gestureItem = this.closest('.gesture-item');
+      if (confirm('Are you sure you want to remove this gesture?')) {
+        gestureItem.remove();
+      }
+    });
+  });
+  
+  // Handle existing record buttons
+  const recordButtons = document.querySelectorAll('.record-btn');
+  recordButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const recordPopup = document.getElementById('record-popup');
+      if (recordPopup) {
+        recordPopup.style.display = 'flex';
+      }
+    });
+  });
+  
+  // Close popup functionality
+  const closePopupBtn = document.getElementById('close-popup');
+  if (closePopupBtn) {
+    closePopupBtn.addEventListener('click', function() {
+      const recordPopup = document.getElementById('record-popup');
+      if (recordPopup) {
+        recordPopup.style.display = 'none';
+      }
+    });
+  }
+});
