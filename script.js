@@ -1,12 +1,37 @@
-// Clean, simplified version of the user profile management code
+// Enhanced user profile management with login integration
 document.addEventListener('DOMContentLoaded', function() {
-    // Load user name from localStorage on page load
+    // Load user name from localStorage on every page
     const profileTitle = document.querySelector('.profile-title');
     if (profileTitle) {
       const savedName = localStorage.getItem('userName');
       if (savedName) {
         profileTitle.textContent = `Welcome, ${savedName}!`;
       }
+    }
+  
+    // Check if we're on the login page (you'll need to add an identifier to your login form)
+    const loginForm = document.querySelector('#loginForm, .login-form'); // Adjust selector to match your login form
+    if (loginForm) {
+      // Handle login submission
+      loginForm.addEventListener('submit', function(event) {
+        // Prevent form submission if you're handling login via JavaScript
+        event.preventDefault();
+        
+        // Get the username/name input from the login form
+        // Adjust these selectors to match your actual input fields
+        const usernameInput = loginForm.querySelector('input[type="text"], input[name="username"]');
+        const passwordInput = loginForm.querySelector('input[type="password"]');
+        
+        if (usernameInput && usernameInput.value.trim()) {
+          // Store the name in localStorage
+          localStorage.setItem('userName', usernameInput.value.trim());
+          
+          // You might want to do additional validation here
+          
+          // Redirect to the home page after login
+          window.location.href = 'home.html'; // Adjust path as needed
+        }
+      });
     }
   
     // Profile page specific functionality
@@ -27,6 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
       // If we found the name input and button, set up the event handler
       if (fullNameInput && updateNameButton) {
+        // Update the profile form with the saved name
+        const savedName = localStorage.getItem('userName');
+        if (savedName && fullNameInput.value === "John Doe") {
+          // Only update if it's still the default value
+          fullNameInput.value = savedName;
+        }
+        
         updateNameButton.addEventListener('click', function() {
           if (fullNameInput.disabled) {
             // Enable the input for editing
