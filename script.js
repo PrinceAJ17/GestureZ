@@ -191,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Add this to your existing JavaScript or replace the current recording functionality
 document.addEventListener('DOMContentLoaded', function() {
   const recordPopup = document.getElementById('record-popup');
   const openRecordBtn = document.getElementById('open-record-popup');
@@ -208,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let recordedChunks = [];
   let stream;
   let videoElement;
+  let isRecording = false;
   
   // Function to create video element for preview
   function createVideoElement() {
@@ -230,8 +230,16 @@ document.addEventListener('DOMContentLoaded', function() {
       videoElement = createVideoElement();
       videoElement.srcObject = stream;
       
-      statusIndicator.textContent = 'Camera active';
+      statusIndicator.textContent = 'Ready to record';
       statusDot.style.backgroundColor = 'green';
+      
+      // Reset UI
+      isRecording = false;
+      recordButton.querySelector('svg circle').setAttribute('fill', 'none');
+      recordButton.querySelector('svg').setAttribute('stroke', 'white');
+      previewButton.parentElement.classList.remove('active-control');
+      retakeButton.parentElement.classList.remove('active-control');
+      recordButton.parentElement.classList.add('active-control');
     } catch (err) {
       console.error("Error accessing camera: ", err);
       statusIndicator.textContent = 'Camera error';
@@ -239,11 +247,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // Handle recording
+  // Handle recording - toggle between record and stop
   recordButton.addEventListener('click', function() {
     if (!stream) return;
     
-    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+    if (!isRecording) {
       // Start recording
       recordedChunks = [];
       mediaRecorder = new MediaRecorder(stream);
@@ -258,27 +266,49 @@ document.addEventListener('DOMContentLoaded', function() {
         const blob = new Blob(recordedChunks, { type: 'video/webm' });
         const videoURL = URL.createObjectURL(blob);
         
-        // Display recorded video
+        // Store the blob for later use
+        recordButton.dataset.recordedBlob = videoURL;
+        
+        // Switch to preview mode
         videoElement.srcObject = null;
         videoElement.src = videoURL;
         videoElement.controls = true;
+        videoElement.loop = true;
+        videoElement.play();
         
-        // Store the blob for later use
-        recordButton.dataset.recordedBlob = videoURL;
+        // Update UI to preview mode
+        statusIndicator.textContent = 'Preview mode';
+        statusDot.style.backgroundColor = 'blue';
+        previewButton.parentElement.classList.add('active-control');
+        recordButton.parentElement.classList.remove('active-control');
       };
       
       mediaRecorder.start();
+      isRecording = true;
       statusIndicator.textContent = 'Recording...';
       statusDot.style.backgroundColor = 'red';
-      recordButton.querySelector('svg').setAttribute('stroke', 'red');
-      recordButton.querySelector('circle').setAttribute('fill', 'red');
-    } else if (mediaRecorder.state === 'recording') {
+      recordButton.querySelector('svg circle').setAttribute('fill', 'red');
+      
+      // Change button to "stop" appearance
+      recordButton.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <rect x="6" y="6" width="12" height="12" fill="red" stroke="white"></rect>
+        </svg>
+      `;
+    } else {
       // Stop recording
-      mediaRecorder.stop();
-      statusIndicator.textContent = 'Recording complete';
-      statusDot.style.backgroundColor = 'green';
-      recordButton.querySelector('svg').setAttribute('stroke', 'white');
-      recordButton.querySelector('circle').setAttribute('fill', 'none');
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+      }
+      
+      isRecording = false;
+      
+      // Change button back to "record" appearance
+      recordButton.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <circle cx="12" cy="12" r="6"></circle>
+        </svg>
+      `;
     }
   });
   
@@ -288,6 +318,15 @@ document.addEventListener('DOMContentLoaded', function() {
       videoElement.srcObject = null;
       videoElement.src = recordButton.dataset.recordedBlob;
       videoElement.controls = true;
+      videoElement.loop = true;
+      videoElement.play();
+      
+      // Update UI
+      statusIndicator.textContent = 'Preview mode';
+      statusDot.style.backgroundColor = 'blue';
+      previewButton.parentElement.classList.add('active-control');
+      retakeButton.parentElement.classList.add('active-control');
+      recordButton.parentElement.classList.remove('active-control');
     }
   });
   
@@ -296,8 +335,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (stream) {
       videoElement.srcObject = stream;
       videoElement.controls = false;
-      statusIndicator.textContent = 'Camera active';
+      
+      // Reset UI for recording again
+      statusIndicator.textContent = 'Ready to record';
       statusDot.style.backgroundColor = 'green';
+      previewButton.parentElement.classList.remove('active-control');
+      retakeButton.parentElement.classList.remove('active-control');
+      recordButton.parentElement.classList.add('active-control');
+      isRecording = false;
+      
+      // Reset record button appearance
+      recordButton.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <circle cx="12" cy="12" r="6"></circle>
+        </svg>
+      `;
     }
   });
   
@@ -305,11 +357,17 @@ document.addEventListener('DOMContentLoaded', function() {
   saveBtn.addEventListener('click', function() {
     if (recordButton.dataset.recordedBlob) {
       // Get the selected gesture name and description
-      const gestureName = document.querySelector('.form-select').value;
+      const gestureSelect = document.querySelector('.form-select');
+      const gestureName = gestureSelect.value;
       const gestureDesc = document.querySelector('.form-textarea').value;
       
-      // You would normally save this to a database
-      // For now, we'll just display the recorded gesture in the page
+      // Validate inputs
+      if (gestureName === 'Select Gesture' || !gestureDesc.trim()) {
+        alert('Please select a gesture name and add a description');
+        return;
+      }
+      
+      // Find the empty gesture slot on the main page
       const emptyPreview = document.querySelector('.empty-preview');
       if (emptyPreview) {
         // Create a video element to display the recorded gesture
@@ -325,14 +383,94 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update the gesture selection dropdown
         const customSelect = emptyPreview.closest('.gesture-item').querySelector('.select-selected');
-        if (customSelect && gestureName !== 'Select Gesture') {
+        if (customSelect) {
           customSelect.textContent = gestureName;
         }
         
-        // Update the description
-        const gestureText = emptyPreview.closest('.gesture-item').querySelector('.gesture-text');
-        if (gestureText && gestureDesc) {
+        // Update or create the description
+        const gestureConfig = emptyPreview.closest('.gesture-item').querySelector('.gesture-config');
+        if (gestureConfig) {
+          // Check if description element exists
+          let descContainer = gestureConfig.querySelector('.gesture-description');
+          if (!descContainer) {
+            // Create description container if it doesn't exist
+            descContainer = document.createElement('div');
+            descContainer.className = 'gesture-description';
+            gestureConfig.appendChild(descContainer);
+          }
+          
+          // Update or create the text element
+          let gestureText = descContainer.querySelector('.gesture-text');
+          if (!gestureText) {
+            gestureText = document.createElement('p');
+            gestureText.className = 'gesture-text';
+            descContainer.appendChild(gestureText);
+          }
+          
           gestureText.textContent = gestureDesc;
+        }
+        
+        // Show a success message
+        alert('Gesture saved successfully!');
+      } else {
+        // If no empty slot is found, create a new gesture item
+        const gesturesContainer = document.querySelector('.gestures-container');
+        const addGestureContainer = document.querySelector('.add-gesture-container');
+        
+        if (gesturesContainer && addGestureContainer) {
+          // Create new gesture item
+          const newGestureItem = document.createElement('div');
+          newGestureItem.className = 'gesture-item';
+          
+          // Create the HTML structure for the new gesture item
+          newGestureItem.innerHTML = `
+            <div class="gesture-preview">
+              <video src="${recordButton.dataset.recordedBlob}" class="recorded-gesture" controls></video>
+              <div class="video-controls">
+                <button class="play-btn">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <polygon points="5,3 19,12 5,21" fill="currentColor"></polygon>
+                  </svg>
+                </button>
+                <div class="progress-bar">
+                  <div class="progress-fill"></div>
+                </div>
+                <div class="volume-control">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M3,9H7L12,4V20L7,15H3V9Z" fill="currentColor"></path>
+                  </svg>
+                </div>
+                <div class="fullscreen-btn">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M7,14H5V19H10V17H7V14M5,10H7V7H10V5H5V10M17,17H14V19H19V14H17V17M14,5V7H17V10H19V5H14Z" fill="currentColor"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <div class="gesture-config">
+              <div class="select-container">
+                <label>Select gesture</label>
+                <div class="custom-select">
+                  <div class="select-selected">${gestureName}</div>
+                  <div class="select-arrow">▼</div>
+                </div>
+              </div>
+              <div class="gesture-description">
+                <p class="gesture-text">${gestureDesc}</p>
+              </div>
+            </div>
+            
+            <div class="gesture-action">
+              <button class="set-gesture-btn">Set gesture</button>
+            </div>
+          `;
+          
+          // Insert the new gesture item before the add-gesture-container
+          gesturesContainer.insertBefore(newGestureItem, addGestureContainer);
+          
+          // Show a success message
+          alert('New gesture added successfully!');
         }
       }
       
@@ -344,6 +482,10 @@ document.addEventListener('DOMContentLoaded', function() {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
+      
+      // Reset form for next time
+      gestureSelect.value = 'Select Gesture';
+      document.querySelector('.form-textarea').value = '';
     }
   });
   
@@ -356,5 +498,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
       mediaRecorder.stop();
     }
+    
+    recordPopup.style.display = 'none';
+    document.body.classList.remove('popup-open');
   });
 });
