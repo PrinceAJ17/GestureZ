@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GestureZ Profile Settings</title>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="C:\Users\prial\OneDrive\Desktop\GestureZ\profilesettings.css">
+</head>
+<body>
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <img src="/api/placeholder/100/100" alt="User Avatar">
+    </div>
+    <h1 class="profile-title">Welcome, John Doe!</h1>
+    <div class="laptop-icon">
+      <img src="C:\Users\prial\OneDrive\Desktop\GestureZ\images\GZNew.png" alt="GestureZ logo">
+    </div>
+  </div>
+  
+  <div class="main-content">
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <div class="card-button" data-url="home.html">Home</div>
+        </div>
+        <div class="sidebar-item active">Profile/Settings</div>
+        <div class="sidebar-item">Gestures</div>
+        <div class="sidebar-item">Preferences</div>
+      </div>
+      
+      <div class="content">
+        <div class="section-header">Profile</div>
+        <div class="profile-form">
+          <div class="form-row">
+            <div class="form-label">Full name</div>
+            <div class="form-input">
+              <input type="text" class="form-field" value="John Doe">
+              <button class="update-button">Update</button>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-label">Username</div>
+            <div class="form-input">
+              <input type="text" class="form-field" value="johnDoe$">
+              <button class="update-button">Update</button>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-label">Email Address</div>
+            <div class="form-input">
+              <input type="email" class="form-field" value="johndoe234@gmail.com">
+              <button class="update-button">Update</button>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-label">Date of Birth</div>
+            <div class="form-input">
+              <input type="text" class="form-field" value="/ /">
+              <button class="update-button">Update</button>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-label">Language</div>
+            <div class="form-input">
+              <input type="text" class="form-field" value="English">
+              <button class="update-button">Update</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-header">Settings</div>
+        <div class="profile-form">
+          <div class="form-row">
+            <div class="form-label">Gesture Sensitivity</div>
+            <div class="form-input">
+              <div class="slider-container">
+                <div class="slider">
+                  <div class="slider-thumb slider-value-30"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-label">Voice accessibility volume</div>
+            <div class="form-input">
+              <div class="slider-container">
+                <div class="slider">
+                  <div class="slider-thumb slider-value-60"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-label">Head tracking</div>
+            <div class="form-input">
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-label">Start on boot</div>
+            <div class="form-input">
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-header">Permissions</div>
+        <div class="permissions-section">
+          <div class="form-row">
+            <div class="form-label">Terms and conditions</div>
+            <div class="form-input">
+              <a href="#" class="terms-link">Review terms and conditions</a>
+            </div>
+          </div>
+          
+          <div class="permission-item">
+            <div>Camera Access</div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="permission-item">
+            <div>Microphone Access</div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="footer-buttons">
+          <button class="btn btn-logout card-button" data-url="login.html">Logout</button>
+          <div>
+            <button class="btn btn-revert">Revert changes</button>
+            <button class="btn btn-save">Save changes</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
