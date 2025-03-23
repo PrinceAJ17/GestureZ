@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GestureZ - Gestures</title>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="gesturescustom.css">
+</head>
+<body>
+  <div class="profile-header">
+    <div class="profile-avatar">
+        <img src="/api/placeholder/100/100" alt="User Avatar" id="avatarImage">
+    </div>
+    <h1 class="profile-title">Welcome, John Doe!</h1>
+    <div class="laptop-icon">
+      <img src="C:\Users\prial\OneDrive\Desktop\GestureZ\images\GZNew.png" alt="GestureZ logo">
+    </div>
+  </div>
+  
+  <div class="main-content">
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <div class="card-button" data-url="home.html">Home</div>
+        </div>
+        <div class="sidebar-item">Profile/Settings</div>
+        <div class="sidebar-item active card-button" data-url="gesturesdefault.html">Gestures</div>
+        <div class="sidebar-item">Preferences</div>
+    </div>
+    
+    <div class="content">
+      <div class="gesture-tabs">
+        <button class="gesture-tab card-button" data-url="gesturesdefault.html">Default Gestures</button>
+        <button class="gesture-tab active">Custom Gestures</button>
+      </div>
+      
+      <div class="gestures-container">
+        <!-- Gesture Item 1 -->
+        <div class="gesture-item">
+          <div class="gesture-preview">
+            <div class="video-controls">
+              <button class="play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <polygon points="5,3 19,12 5,21" fill="currentColor"></polygon>
+                </svg>
+              </button>
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+              <div class="volume-control">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M3,9H7L12,4V20L7,15H3V9Z" fill="currentColor"></path>
+                </svg>
+              </div>
+              <div class="fullscreen-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M7,14H5V19H10V17H7V14M5,10H7V7H10V5H5V10M17,17H14V19H19V14H17V17M14,5V7H17V10H19V5H14Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          
+          <div class="gesture-config">
+            <div class="select-container">
+              <label>Select gesture</label>
+              <div class="custom-select">
+                <div class="select-selected">Up</div>
+                <div class="select-arrow">▼</div>
+              </div>
+            </div>
+            <div class="gesture-description">
+              <p class="gesture-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at ipsum ut lacinia facilisis in fermentum augue. Praesent eget augue purus. Suspendisse ac ex in neque consequat varius nec a magna. Praesent eget arcu id metus mollis fermentum.</p>
+            </div>
+          </div>
+          
+          <div class="gesture-action">
+            <button class="set-gesture-btn">Set gesture</button>
+          </div>
+        </div>
+        
+        <!-- Gesture Item 2 -->
+        <div class="gesture-item">
+          <div class="gesture-preview">
+            <div class="video-controls">
+              <button class="play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <polygon points="5,3 19,12 5,21" fill="currentColor"></polygon>
+                </svg>
+              </button>
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+              <div class="volume-control">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M3,9H7L12,4V20L7,15H3V9Z" fill="currentColor"></path>
+                </svg>
+              </div>
+              <div class="fullscreen-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M7,14H5V19H10V17H7V14M5,10H7V7H10V5H5V10M17,17H14V19H19V14H17V17M14,5V7H17V10H19V5H14Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          
+          <div class="gesture-config">
+            <div class="select-container">
+              <label>Select gesture</label>
+              <div class="custom-select">
+                <div class="select-selected">Down</div>
+                <div class="select-arrow">▼</div>
+              </div>
+            </div>
+            <div class="gesture-description">
+              <p class="gesture-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at ipsum ut lacinia facilisis in fermentum augue. Praesent eget augue purus. Suspendisse ac ex in neque consequat varius nec a magna. Praesent eget arcu id metus mollis fermentum.</p>
+            </div>
+          </div>
+          
+          <div class="gesture-action">
+            <button class="set-gesture-btn">Set gesture</button>
+          </div>
+        </div>
+        
+        <!-- Gesture Item 3 (Empty/New) -->
+        <div class="gesture-item">
+          <div class="gesture-preview empty-preview">
+            <button class="record-btn card-button" data-url="recordgesture.html">Record New Gesture</button>
+          </div>
+          
+          <div class="gesture-config">
+            <div class="select-container">
+              <label>Select gesture</label>
+              <div class="custom-select">
+                <div class="select-selected">Unselected</div>
+                <div class="select-arrow">▼</div>
+              </div>
+            </div>
+            <div class="gesture-preview-box">
+              <!-- Empty preview box -->
+            </div>
+          </div>
+          
+          <div class="gesture-action">
+            <button class="set-gesture-btn">Set gesture</button>
+          </div>
+        </div>
+        
+        <!-- Add New Gesture Button -->
+        <div class="add-gesture-container">
+          <button class="add-gesture-btn">Add new gesture</button>
+        </div>
+      </div>
+      
+      <div class="footer-buttons">
+        <button class="btn btn-save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

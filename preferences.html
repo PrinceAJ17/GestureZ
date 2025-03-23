@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GestureZ Profile Settings</title>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="C:\Users\prial\OneDrive\Desktop\GestureZ\profilesettings.css">
+</head>
+<body>
+  <div class="profile-header">
+    <div class="profile-avatar">
+        <img src="/api/placeholder/100/100" alt="User Avatar" id="avatarImage">
+    </div>
+    <h1 class="profile-title">Welcome, John Doe!</h1>
+    <div class="laptop-icon">
+      <img src="C:\Users\prial\OneDrive\Desktop\GestureZ\images\GZNew.png" alt="GestureZ logo">
+    </div>
+  </div>
+  
+  <div class="main-content">
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <div class="card-button" data-url="home.html">Home</div>
+        </div>
+        <div class="sidebar-item">Profile/Settings</div>
+        <div class="sidebar-item card-button" data-url="gesturesdefault.html">Gestures</div>
+        <div class="sidebar-item active">Preferences</div>
+    </div>
+      
+<!-- Keep the profile-header and sidebar the same, but modify the content div -->
+    <div class="content">
+        <div class="section-header">Widget Preferences</div>
+        <div class="profile-form">
+        <div class="form-row">
+            <div class="form-label">Gesture Mode</div>
+            <div class="form-input">
+            <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+            </label>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-label">Speech to text</div>
+            <div class="form-input">
+            <label class="toggle-switch">
+                <input type="checkbox">
+                <span class="toggle-slider"></span>
+            </label>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-label">Voice Accessibility</div>
+            <div class="form-input">
+            <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+            </label>
+            </div>
+        </div>
+        </div>
+        
+        <div class="section-header">Floating Widget View</div>
+        <div class="profile-form" style="display: flex; justify-content: center; align-items: center; padding: 40px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="background-color: #3498db; border-radius: 40px; padding: 15px 30px; display: flex; align-items: center; gap: 30px;">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M7 11C8.10457 11 9 10.1046 9 9C9 7.89543 8.10457 7 7 7C5.89543 7 5 7.89543 5 9C5 10.1046 5.89543 11 7 11Z" fill="white"/>
+                <path d="M19 11C20.1046 11 21 10.1046 21 9C21 7.89543 20.1046 7 19 7C17.8954 7 17 7.89543 17 9C17 10.1046 17.8954 11 19 11Z" fill="white"/>
+                <path d="M13 15C14.1046 15 15 14.1046 15 13C15 11.8954 14.1046 11 13 11C11.8954 11 11 11.8954 11 13C11 14.1046 11.8954 15 13 15Z" fill="white"/>
+                <path d="M7 11C8.10457 11 9 10.1046 9 9C9 7.89543 8.10457 7 7 7C5.89543 7 5 7.89543 5 9C5 10.1046 5.89543 11 7 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 11C20.1046 11 21 10.1046 21 9C21 7.89543 20.1046 7 19 7C17.8954 7 17 7.89543 17 9C17 10.1046 17.8954 11 19 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 15C14.1046 15 15 14.1046 15 13C15 11.8954 14.1046 11 13 11C11.8954 11 11 11.8954 11 13C11 14.1046 11.8954 15 13 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 14H12L11 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M16 6.99999V3.99999M12 6.99999V3.99999M8 6.99999V3.99999M7 20.9998H17C19.2091 20.9998 21 19.2089 21 16.9998V9.99981C21 7.7907 19.2091 5.99981 17 5.99981H7C4.79086 5.99981 3 7.7907 3 9.99981V16.9998C3 19.2089 4.79086 20.9998 7 20.9998Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 12L9 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15 12L15 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.54 8.46C16.4774 9.39764 17.004 10.6692 17.004 11.995C17.004 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.07 5.93C19.9447 7.80528 20.9979 10.3447 20.9979 13C20.9979 15.6553 19.9447 18.1947 18.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div style="background-color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #3498db;">
+                Gz
+            </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; align-items: center;">
+            <div style="font-size: 24px;">≪≪≪</div>
+            </div>
+            
+            <div style="background-color: #3498db; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 24px;">
+            Gz
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
