@@ -49,6 +49,10 @@
   .laptop-icon img {
     width: 150px;
   }
+
+  .camera-placeholder img {
+    width: 50px;
+  }
   
   .main-content {
     width: 100%;
